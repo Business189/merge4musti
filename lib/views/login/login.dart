@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:four_musti/components/primary_rounded_button.dart';
+import 'package:four_musti/views/account_details/account_details.dart';
+import 'package:get/get.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -27,7 +29,9 @@ class Login extends StatelessWidget {
             roundedElevatedButton(
               context,
               text: "Login with Google",
-              onPressed: () {},
+              onPressed: () {
+                Get.to(AccountDetails());
+              },
             ),
           ],
         ),

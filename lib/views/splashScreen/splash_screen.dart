@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:four_musti/views/onboarding/onboarding_page.dart';
+import 'package:get/get.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -12,11 +14,16 @@ class SplashScreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(height: MediaQuery.of(context).size.height / 3),
-            Center(
-              child: Image.asset(
-                'assets/images/4musti_logo.jpeg',
-                height: 130,
-                width: 130,
+            InkWell(
+              onTap: () {
+                Get.to(const Onboarding());
+              },
+              child: Center(
+                child: Image.asset(
+                  'assets/images/4musti_logo.jpeg',
+                  height: 130,
+                  width: 130,
+                ),
               ),
             ),
             const SizedBox(height: 5),

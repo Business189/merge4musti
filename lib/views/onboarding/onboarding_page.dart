@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:four_musti/views/login/login.dart';
+import 'package:get/get.dart';
 
 class Onboarding extends StatelessWidget {
   const Onboarding({Key? key}) : super(key: key);
@@ -57,7 +59,9 @@ class Onboarding extends StatelessWidget {
             ),
             const Spacer(),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(const Login());
+              },
               child: const Text(
                 'Get Started',
               ),
