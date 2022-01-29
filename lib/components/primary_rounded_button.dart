@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 
-Widget continueElevatedButton(BuildContext context,
+Widget roundedElevatedButton(BuildContext context,
     {required String text, Function()? onPressed}) {
   return ElevatedButton(
     onPressed: onPressed,
@@ -15,9 +15,14 @@ Widget continueElevatedButton(BuildContext context,
       elevation: 0.0,
       shadowColor: Colors.transparent,
       primary: const Color(0xFF9768D1),
-      fixedSize: Size(MediaQuery.of(context).size.width - 30, 48),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0.0),
+      fixedSize: Size(MediaQuery.of(context).size.width, 48),
+      shape: const RoundedRectangleBorder(
+        // topleft and topright border radius
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
+        // borderRadius: BorderRadius.,
       ),
     ),
   );

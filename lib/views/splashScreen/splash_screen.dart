@@ -11,15 +11,24 @@ class SplashScreen extends StatelessWidget {
         color: const Color(0xFF25064C),
         child: Column(
           children: [
-            Expanded(
-              child: Center(
-                child: Image.asset(
-                  'assets/images/4musti_logo.jpeg',
-                  height: 200,
-                  width: 200,
-                ),
+            SizedBox(height: MediaQuery.of(context).size.height / 3),
+            Center(
+              child: Image.asset(
+                'assets/images/4musti_logo.jpeg',
+                height: 130,
+                width: 130,
               ),
             ),
+            const SizedBox(height: 5),
+            const Text(
+              "made in india",
+              style: TextStyle(
+                fontSize: 18,
+                color: Colors.white,
+                // fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Spacer(),
             Align(
               alignment: Alignment.bottomLeft,
               child: Column(

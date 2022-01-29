@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:four_musti/components/primary_button.dart';
+import 'package:four_musti/components/primary_rounded_button.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -10,13 +10,9 @@ class Login extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       resizeToAvoidBottomInset: false,
-      bottomNavigationBar: continueElevatedButton(
-        context,
-        text: "Login with Google",
-        onPressed: () {},
-      ),
+      // bottomNavigationBar:
       body: Container(
-        padding: const EdgeInsets.only(left: 16, right: 16),
+        // padding: const EdgeInsets.only(left: 16, right: 16),
         width: double.infinity,
         color: const Color(0xFF25064C),
         child: Column(
@@ -26,7 +22,13 @@ class Login extends StatelessWidget {
             SvgPicture.asset(
               'assets/images/login.svg',
             ),
-            const SizedBox(height: 10),
+            // const SizedBox(height: 10),
+            const Spacer(),
+            roundedElevatedButton(
+              context,
+              text: "Login with Google",
+              onPressed: () {},
+            ),
           ],
         ),
       ),

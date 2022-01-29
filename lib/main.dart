@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
       title: '4musti',
       theme: ThemeData(),
       // home: const SplashScreen(),
-      // home: const Onboarding(),
+      home: const Onboarding(),
       // home: const Login(),
-      home: AccountDetails(),
+      // home: AccountDetails(),
     );
   }
 }

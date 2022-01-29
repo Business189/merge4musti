@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class Onboarding extends StatelessWidget {
   const Onboarding({Key? key}) : super(key: key);
@@ -14,24 +15,56 @@ class Onboarding extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: MediaQuery.of(context).size.height / 4),
-            SvgPicture.asset(
-              'assets/images/onboarding.svg',
-            ),
-            const SizedBox(height: 10),
-            const Text(
-              'Welcome',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
+            SizedBox(height: MediaQuery.of(context).size.height / 6),
+            CarouselSlider(
+              items: [
+                //1st Image of Slider
+                SvgPicture.asset(
+                  'assets/images/onboarding.svg',
+                ),
+
+                //2nd Image of Slider
+                SvgPicture.asset(
+                  'assets/images/onboarding.svg',
+                ),
+
+                //3rd Image of Slider
+                SvgPicture.asset(
+                  'assets/images/onboarding.svg',
+                ),
+
+                //4th Image of Slider
+                SvgPicture.asset(
+                  'assets/images/onboarding.svg',
+                ),
+
+                //5th Image of Slider
+                SvgPicture.asset(
+                  'assets/images/onboarding.svg',
+                ),
+              ],
+              //Slider Container properties
+              options: CarouselOptions(
+                height: 300.0,
+                enlargeCenterPage: true,
+                autoPlay: true,
+                // aspectRatio: 16 / 9,
+                autoPlayCurve: Curves.fastOutSlowIn,
+                enableInfiniteScroll: true,
+                autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                viewportFraction: 0.8,
               ),
             ),
-            const SizedBox(height: 70),
+            const Spacer(),
             ElevatedButton(
               onPressed: () {},
               child: const Text(
                 'Get Started',
+              ),
+              style: ElevatedButton.styleFrom(
+                elevation: 0.0,
+                shadowColor: Colors.transparent,
+                primary: const Color(0xFF9768D1),
               ),
             ),
           ],
