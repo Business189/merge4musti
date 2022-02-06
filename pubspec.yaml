@@ -36,6 +36,8 @@ dependencies:
   flutter_svg: ^0.22.0
   carousel_slider: ^4.0.0
   get: ^4.6.1
+  # rwa_deep_ar: ^0.0.12
+  
 
 dev_dependencies:
   flutter_test:
