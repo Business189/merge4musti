@@ -36,6 +36,7 @@ dependencies:
   flutter_svg: ^0.22.0
   carousel_slider: ^4.0.0
   get: ^4.6.1
+  google_fonts: 2.2.0
   # rwa_deep_ar: ^0.0.12
   
 
@@ -57,6 +58,7 @@ dev_dependencies:
 flutter:
   assets:
     - assets/images/
+    - assets/images/onboarding/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

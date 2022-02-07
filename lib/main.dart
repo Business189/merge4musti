@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:four_musti/utils/routes.dart';
 import 'package:four_musti/views/account_details/account_details.dart';
 import 'package:four_musti/views/indexedPage/create.dart';
 import 'package:four_musti/views/login/login.dart';
@@ -19,12 +20,13 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: '4musti',
-      theme: ThemeData(),
       // home: const SplashScreen(),
       // home: const Onboarding(),
       // home: const Login(),
       // home: AccountDetails(),
-      home: Home(),
+      // home: Home(),
+      initialRoute: "/SPLASH",
+      getPages: Routes,
     );
   }
 }
