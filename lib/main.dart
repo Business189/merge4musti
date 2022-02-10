@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:four_musti/utils/routes.dart';
-import 'package:four_musti/views/account_details/account_details.dart';
-import 'package:four_musti/views/indexedPage/create.dart';
-import 'package:four_musti/views/login/login.dart';
-import 'package:four_musti/views/onboarding/onboarding_page.dart';
-import 'package:four_musti/views/splashScreen/splash_screen.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -25,7 +20,8 @@ class MyApp extends StatelessWidget {
       // home: const Login(),
       // home: AccountDetails(),
       // home: Home(),
-      initialRoute: "/SPLASH",
+      // initialRoute: "INITIAL_FOLLOW",
+      initialRoute: "SPLASH",
       getPages: Routes,
     );
   }

@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:four_musti/utils/themes.dart';
 
 Widget dropDownList(BuildContext context, String label, String initialItem,
     List<String> items) {
@@ -18,7 +19,7 @@ Widget dropDownList(BuildContext context, String label, String initialItem,
       children: [
         Text(
           label,
-          style: TextStyle(fontSize: 12, color: Color(0xFF87ABD2)),
+          style: TextStyle(fontSize: 12, color: lightVioletI),
         ),
         Positioned(
           top: 2,
@@ -37,7 +38,7 @@ Widget dropDownList(BuildContext context, String label, String initialItem,
                     style: TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w700,
-                        color: Color(0xFF095766)),
+                        color: primaryColorII),
                   ),
                 );
               }).toList(),

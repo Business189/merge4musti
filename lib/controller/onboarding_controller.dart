@@ -7,24 +7,26 @@ class OnboardingController extends GetxController {
     OnboardingData(
       image: "assets/images/onboarding/hannah_unsplash.jpg",
       heading: "Watch Your Favourite Stars",
-      description: "India's leading social media stars collab in one platform",
+      description:
+          "You are most welcome to watch India's leading social media superstars collab in one platform..the magnificent 4musti..",
     ),
     OnboardingData(
       image: "assets/images/onboarding/hannah_unsplash.jpg",
       heading: "Create Video Content",
       description:
-          "A fully featured platform for making professional, musti videos in minutes.",
+          "Open your mobile,Unfurl 4musti and create classic 4musti videos in minutes...Just Wow!! Right??",
     ),
     OnboardingData(
       image: "assets/images/onboarding/hannah_unsplash.jpg",
       heading: "Be A Star",
-      description: "Create awesome videos and be the next superstar in India",
+      description:
+          "Want to become a celebrity??\nNo worries!! Post awesome videos and become the next superstar of India!!!!!",
     ),
     OnboardingData(
       image: "assets/images/onboarding/hannah_unsplash.jpg",
       heading: "Unlimited Live Streaming",
       description:
-          "Experience unlimited 24/7 live streaming experience with 4musti",
+          "Enjoy the inexplicable experience round the clock anytime anywhere with the aura of your boon companion 4musti",
     ),
   ];
 
@@ -34,7 +36,7 @@ class OnboardingController extends GetxController {
 
   nextPage() {
     if (isLastpage) {
-      Get.offAllNamed("HOME");
+      Get.offAllNamed("LOGIN");
     } else {
       pageController.nextPage(duration: 300.milliseconds, curve: Curves.ease);
     }

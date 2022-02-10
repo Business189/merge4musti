@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:four_musti/controller/splash_controller.dart';
 import 'package:four_musti/utils/themes.dart';
-import 'package:four_musti/views/onboarding/onboarding_page.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
