@@ -4,20 +4,23 @@ import "package:flutter/material.dart";
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:four_musti/utils/themes.dart';
 
-Widget plainTextField(
-    {String? labelText,
-    IconData? suffixicon,
-    String? url = "",
-    TextEditingController? controller,
-    TextInputType? inputType,
-    Function(String)? onChanged,
-    Function()? onIconPressed,
-    bool? isEnable = true,
-    IconData? prefixIcon}) {
+Widget plainTextField({
+  String? labelText,
+  IconData? suffixicon,
+  String? url = "",
+  TextEditingController? controller,
+  TextInputType? inputType,
+  Function(String)? onChanged,
+  Function()? onIconPressed,
+  bool? isEnable = true,
+  IconData? prefixIcon,
+  bool? isPassword,
+}) {
   return TextField(
     keyboardType: inputType,
     onChanged: onChanged,
     enabled: isEnable,
+    obscureText: isPassword ?? false,
     controller: controller,
     style: TextStyle(
       height: 1,

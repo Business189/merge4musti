@@ -14,12 +14,13 @@ class InitialFollow extends StatelessWidget {
   // FollowController followController = Get.put(FollowController());
   @override
   Widget build(BuildContext context) {
+    print("Device Width: $deviceWidth and Device Height: $deviceHeight");
     return Container(
       decoration: BoxDecoration(gradient: splashGradient),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Container(
-          margin: EdgeInsets.only(left: 16, right: 16),
+          margin: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
               SizedBox(height: deviceHeight * 0.10),
@@ -62,7 +63,7 @@ class InitialFollow extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                height: 20,
+                height: deviceHeight * 0.023,
               ),
               SizedBox(
                 height: deviceHeight * 0.75,
@@ -202,7 +203,6 @@ Container card({String? profilePic, String? name, String? uid, int? index}) {
         ),
         InkWell(
           onTap: () {
-            print("Index $index");
             fc.checkFollowing(index!);
           },
           child: Container(

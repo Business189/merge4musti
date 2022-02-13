@@ -97,16 +97,16 @@ class AccountDetails extends StatelessWidget {
                     height: 15,
                   ),
                   plainTextField(
-                    labelText: 'Email',
-                    // controller: tutorName,
-                  ),
+                      labelText: 'Email', inputType: TextInputType.emailAddress
+                      // controller: tutorName,
+                      ),
                   const SizedBox(
                     height: 15,
                   ),
                   plainTextField(
-                    labelText: 'Mobile No',
-                    // controller: tutorName,
-                  ),
+                      labelText: 'Mobile No', inputType: TextInputType.phone
+                      // controller: tutorName,
+                      ),
                   const SizedBox(
                     height: 15,
                   ),

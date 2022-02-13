@@ -58,13 +58,16 @@ class MobileLogin extends StatelessWidget {
               SizedBox(height: 30),
               // SvgPicture.asset("assets/reading.svg"),
               plainTextField(
-                  labelText: "Mobile Number", prefixIcon: Icons.phone),
+                  labelText: "Mobile Number",
+                  prefixIcon: Icons.phone,
+                  inputType: TextInputType.phone),
               SizedBox(
                 height: 15,
               ),
               plainTextField(
                 labelText: "Password",
                 prefixIcon: Icons.lock_outline_rounded,
+                isPassword: true,
               ),
               SizedBox(
                 height: 15,

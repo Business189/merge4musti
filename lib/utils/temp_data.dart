@@ -1,3 +1,4 @@
+import 'package:four_musti/model/others_data.dart';
 import 'package:four_musti/model/top_following_model.dart';
 
 List<TopFollowingModel> topFollowingList = [
@@ -61,4 +62,29 @@ List<TopFollowingModel> topFollowingList = [
       profilePic:
           "https://images.unsplash.com/photo-1563452965085-2e77e5bf2607?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
       name: "Quaid Lagan"),
+];
+
+List<OthersData> tempUserVideoData = [
+  OthersData(
+    username: "payel",
+    othersProfilePic:
+        "https://images.unsplash.com/photo-1503104834685-7205e8607eb9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+    tags: ["#enjoy", "#4musti"],
+    likes: "120K",
+    totalShare: "122K",
+    totalComments: "780",
+    videoUrl:
+        "https://assets.mixkit.co/videos/preview/mixkit-abstract-image-of-a-man-with-rays-coming-out-of-32692-large.mp4",
+  ),
+  OthersData(
+    username: "Ajay",
+    othersProfilePic:
+        "https://images.unsplash.com/photo-1600275669439-14e40452d20b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+    tags: ["#enjoy", "#4musti"],
+    likes: "12K",
+    totalShare: "14K",
+    totalComments: "80",
+    videoUrl:
+        "https://assets.mixkit.co/videos/preview/mixkit-woman-running-above-the-camera-on-a-running-track-32807-large.mp4",
+  ),
 ];
