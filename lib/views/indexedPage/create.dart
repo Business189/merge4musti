@@ -14,6 +14,8 @@ import 'package:four_musti/views/indexedPage/search.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
+import '../profile/my_profile.dart';
+
 class Home extends StatelessWidget {
   final TextStyle unselectedLabelStyle = TextStyle(
       color: Colors.white.withOpacity(0.5),
@@ -121,7 +123,7 @@ class Home extends StatelessWidget {
               SearchPage(),
               CreatePage(),
               InboxPage(),
-              ProfilePage(),
+              MyProfilePage()
             ],
           )),
     ));
@@ -134,7 +136,7 @@ List<Widget> _buildScreens() {
     SearchPage(),
     CreatePage(),
     InboxPage(),
-    ProfilePage(),
+    MyProfilePage(),
   ];
 }
 

@@ -1,18 +1,18 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:four_musti/components/component.dart';
 import 'package:four_musti/components/primary_rounded_button.dart';
 import 'package:four_musti/components/bezierCurveUtilities/bezier_curve_i.dart';
+import 'package:four_musti/controller/auth.dart';
 import 'package:four_musti/utils/constants.dart';
 import 'package:four_musti/utils/themes.dart';
-import 'package:four_musti/views/account_details/account_details.dart';
 import 'package:get/get.dart';
 
 class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
-
+  Login({Key? key}) : super(key: key);
+  AuthController authController = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     print("DeviceWidth $deviceWidth and DeviceHeight $deviceHeight");
@@ -84,8 +84,9 @@ class Login extends StatelessWidget {
               context,
               text: "Login with Google",
               cornerRadius: 4,
-              onPressed: () {
-                Get.toNamed("ACCOUNT_DETAILS");
+              onPressed: () async {
+                await authController.signInwithGoogle();
+                // Get.toNamed("ACCOUNT_DETAILS");
               },
             ),
             const SizedBox(height: 10),

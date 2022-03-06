@@ -11,7 +11,7 @@ class ProfilePage extends StatelessWidget {
       body: Container(
         height: double.infinity,
         width: double.infinity,
-        color: Colors.black,
+        color: Colors.white,
       ),
     );
   }

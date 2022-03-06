@@ -1,9 +1,11 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:four_musti/components/component.dart';
 import 'package:four_musti/controller/account_details_controller.dart';
+import 'package:four_musti/controller/auth.dart';
 import 'package:four_musti/utils/constants.dart';
 import 'package:four_musti/utils/themes.dart';
 import 'package:get/get.dart';
@@ -13,10 +15,12 @@ class AccountDetails extends StatelessWidget {
   String label = "Male";
   List<String> gender = ["Male", "Female", "Others"];
   AccountDetailsController adc = Get.put(AccountDetailsController());
+  AuthController authController = Get.find<AuthController>();
+  User? user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     FocusScopeNode focusScope = FocusScope.of(context);
-    adc.fadeIn();
+    // adc.fadeIn();
     return Container(
       decoration: BoxDecoration(gradient: splashGradient),
       child: Scaffold(
@@ -26,7 +30,28 @@ class AccountDetails extends StatelessWidget {
         bottomNavigationBar: gradientButton(
           context,
           text: "Continue",
-          onPressed: () {
+          onPressed: () async {
+            String name = authController.userNameController.text;
+            if (name.isNotEmpty) {
+              await authController
+                  .createUser(authController.userNameController.text);
+              await authController.storeInSharedPreference();
+              Get.offNamed("INITIAL_FOLLOW");
+            } else {
+              Get.snackbar(
+                'Error',
+                'Please Enter Your Name',
+                snackPosition: SnackPosition.BOTTOM,
+                backgroundColor: primaryColorI,
+                borderRadius: 10,
+                margin: EdgeInsets.all(10),
+                borderColor: primaryColorI,
+                borderWidth: 1,
+                colorText: Colors.white,
+                // fontSizeText: 16,
+                // fontWeightText: FontWeight.w500,
+              );
+            }
             Get.toNamed("INITIAL_FOLLOW");
           },
           cornerRadius: 0.0,
@@ -90,29 +115,27 @@ class AccountDetails extends StatelessWidget {
                     height: 15,
                   ),
                   plainTextField(
-                    labelText: 'Name',
-                    // controller: tutorName,
+                      labelText: 'Name',
+                      controller: authController.userNameController),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  plainTextField(
+                    labelText: 'Email',
+                    inputType: TextInputType.emailAddress,
+                    controller: authController.emailController,
+                    isEnable: false,
                   ),
                   const SizedBox(
                     height: 15,
                   ),
                   plainTextField(
-                      labelText: 'Email', inputType: TextInputType.emailAddress
-                      // controller: tutorName,
-                      ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  plainTextField(
-                      labelText: 'Mobile No', inputType: TextInputType.phone
-                      // controller: tutorName,
-                      ),
+                      labelText: 'Mobile No', inputType: TextInputType.phone),
                   const SizedBox(
                     height: 15,
                   ),
                   plainTextField(
                     labelText: 'Country',
-                    // controller: tutorName,
                   ),
                   const SizedBox(
                     height: 15,

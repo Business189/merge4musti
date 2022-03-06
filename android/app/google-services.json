@@ -1,0 +1,148 @@
+{
+  "project_info": {
+    "project_number": "185898219822",
+    "firebase_url": "https://masti-edeb9.firebaseio.com",
+    "project_id": "masti-edeb9",
+    "storage_bucket": "masti-edeb9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185898219822:android:0ab77d81713368abb2e2bf",
+        "android_client_info": {
+          "package_name": "com.ap.fourmusti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185898219822-5vem9muo59kmaqg7e6caef95ofqrrvb9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ap.fourmusti",
+            "certificate_hash": "cb77ce2ccd9167bb907f50df98539574429d6bdb"
+          }
+        },
+        {
+          "client_id": "185898219822-7i4vib9jmstv6rrqm9rlfh8ouc85aibr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ap.fourmusti",
+            "certificate_hash": "1838f1a414b433c15f93679db047ec6e40e62ddd"
+          }
+        },
+        {
+          "client_id": "185898219822-jmb8bo6i86k76bq6g3dfqgsotpa4609v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ap.fourmusti",
+            "certificate_hash": "affc50864bca31f95fb2cfb1c7edcd0ded6c21d2"
+          }
+        },
+        {
+          "client_id": "185898219822-k4dvcfpogqcam7dtgiss6q44e7fug0ad.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ap.fourmusti",
+            "certificate_hash": "ff0a2bca172e736d31ed6dc67ae51590f46d50a5"
+          }
+        },
+        {
+          "client_id": "185898219822-mplcrlp7f55j2olddk812qejnh2qm8mi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ap.fourmusti",
+            "certificate_hash": "2a736168180af7af117df46b17f15f6de4e5431a"
+          }
+        },
+        {
+          "client_id": "185898219822-r7lpgmjvl3rm28jqhvg6u44jmmrjrkh5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ap.fourmusti",
+            "certificate_hash": "2c514b6c5f8b553de0475d3ed59901a04a4a9c7d"
+          }
+        },
+        {
+          "client_id": "185898219822-1cfqkqn1j4gnbls1os34cu3c16dlk8v7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBg2ma04sj7TU21nGCa-SKSKPLmwMXOPmQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185898219822-1cfqkqn1j4gnbls1os34cu3c16dlk8v7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "185898219822-evs34cdru12kbnt9a0ce020il5pbct7e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ap.fourmusti"
+              }
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-8095936852564869~6794385742"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:185898219822:android:a91052922c17cd3fb2e2bf",
+        "android_client_info": {
+          "package_name": "com.app.foradmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "185898219822-dfbfadmoun58q5asjculgg86207smie3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.foradmin",
+            "certificate_hash": "ff0a2bca172e736d31ed6dc67ae51590f46d50a5"
+          }
+        },
+        {
+          "client_id": "185898219822-qq4uauhs5pnbedmlos8kh3qk5cvels7i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.foradmin",
+            "certificate_hash": "1838f1a414b433c15f93679db047ec6e40e62ddd"
+          }
+        },
+        {
+          "client_id": "185898219822-1cfqkqn1j4gnbls1os34cu3c16dlk8v7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBg2ma04sj7TU21nGCa-SKSKPLmwMXOPmQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "185898219822-1cfqkqn1j4gnbls1os34cu3c16dlk8v7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "185898219822-evs34cdru12kbnt9a0ce020il5pbct7e.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ap.fourmusti"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:four_musti/controller/splash_controller.dart';
 import 'package:four_musti/utils/themes.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({Key? key}) : super(key: key);
@@ -50,7 +49,7 @@ class SplashScreen extends StatelessWidget {
                         const SizedBox(height: 5),
                         Text(
                           "Made in India",
-                          style: GoogleFonts.satisfy(
+                          style: TextStyle(
                             fontSize: 22,
                             color: splashTextColor,
                             shadows: [

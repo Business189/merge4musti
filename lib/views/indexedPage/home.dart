@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, must_be_immutable
 
 import 'package:better_player/better_player.dart';
 import 'package:cached_network_image/cached_network_image.dart';
