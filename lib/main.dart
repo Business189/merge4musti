@@ -6,6 +6,8 @@ import 'package:four_musti/utils/routes.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'utils/initial_bindings.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: '4musti',
       initialRoute: "DEFAULT",
+      initialBinding: InstanceBinding(),
       builder: EasyLoading.init(),
       getPages: Routes,
     );
