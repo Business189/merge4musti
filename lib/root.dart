@@ -6,6 +6,7 @@ import 'package:four_musti/controller/auth.dart';
 import 'package:four_musti/model/user_model.dart';
 import 'package:four_musti/views/indexedPage/home.dart';
 import 'package:four_musti/views/login/login.dart';
+import 'package:four_musti/views/profile/my_profile.dart';
 import 'package:four_musti/views/splashScreen/splash_screen.dart';
 import 'package:get/get.dart';
 
@@ -32,7 +33,7 @@ class Root extends StatelessWidget {
                   } else {
                     authController.userModel.value = snapshot.data!;
                     authController.storeInSharedPreference();
-                    return HomePage();
+                    return MyProfilePage();
                   }
                 // return Text('Result: ${snapshot.data?.displayName}');
               }

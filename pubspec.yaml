@@ -46,7 +46,12 @@ dependencies:
   get_storage: ^2.0.3
   flutter_easyloading: ^3.0.3
   google_sign_in: ^5.2.3
-  # rwa_deep_ar: ^0.0.12
+  flutter_chat_ui: ^1.5.5
+  file_picker: ^4.5.0
+  uuid: ^3.0.6
+  open_file: ^3.2.1
+  image_picker: ^0.8.4+10
+  mime: ^1.0.1
   
 
 dev_dependencies:

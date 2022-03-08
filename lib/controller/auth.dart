@@ -16,6 +16,7 @@ class AuthController extends GetxController {
   final firebase = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  TextEditingController nameController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
 
@@ -42,7 +43,8 @@ class AuthController extends GetxController {
         displayName = _auth.currentUser!.displayName;
         print("DisplayName>>>> $displayName");
         email = _auth.currentUser!.email;
-        userNameController = TextEditingController(text: displayName ?? "");
+        nameController = TextEditingController(text: displayName ?? "");
+        userNameController = TextEditingController();
         emailController = TextEditingController(text: email ?? "");
         profilePic!.value = _auth.currentUser!.photoURL!;
 
@@ -59,11 +61,11 @@ class AuthController extends GetxController {
   }
 
   //create user
-  Future<void> createUser(String name) async {
+  Future<void> createUser(String fullName, userName) async {
     await EasyLoading.show(status: 'loading...');
 
     try {
-      if (await createorUpdateUser(_authResult, name)) {
+      if (await createorUpdateUser(_authResult, fullName, userName)) {
         Get.offNamed('ROOT');
       }
     } catch (e) {
@@ -76,6 +78,7 @@ class AuthController extends GetxController {
   Future<bool> createorUpdateUser(
     UserCredential userCredential,
     String? fullName,
+    String? userName,
   ) async {
     String _currentTimeStamp = DateTime.now().toString();
     User fireBaseUser = userCredential.user!;
@@ -88,6 +91,7 @@ class AuthController extends GetxController {
           uid: _auth.currentUser!.uid,
           email: _auth.currentUser!.email,
           country: "India",
+          username: userName ?? "Unknown",
           name: fullName ?? "Unknown",
           // name: _auth.currentUser!.displayName ?? fullName,
           mobileNo: "",

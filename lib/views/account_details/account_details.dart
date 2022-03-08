@@ -31,12 +31,14 @@ class AccountDetails extends StatelessWidget {
           context,
           text: "Continue",
           onPressed: () async {
-            String name = authController.userNameController.text;
-            if (name.isNotEmpty) {
-              await authController
-                  .createUser(authController.userNameController.text);
+            String name = authController.nameController.text;
+            String username = authController.userNameController.text;
+            if (name.isNotEmpty && username.isNotEmpty) {
+              await authController.createUser(
+                  authController.nameController.text,
+                  authController.userNameController.text);
               await authController.storeInSharedPreference();
-              Get.offNamed("INITIAL_FOLLOW");
+              Get.offNamed("MY_PROFILE_PAGE");
             } else {
               Get.snackbar(
                 'Error',
@@ -52,7 +54,7 @@ class AccountDetails extends StatelessWidget {
                 // fontWeightText: FontWeight.w500,
               );
             }
-            Get.toNamed("INITIAL_FOLLOW");
+            // Get.toNamed("INITIAL_FOLLOW");
           },
           cornerRadius: 0.0,
         ),
@@ -115,8 +117,17 @@ class AccountDetails extends StatelessWidget {
                     height: 15,
                   ),
                   plainTextField(
+                    labelText: 'Username',
+                    inputType: TextInputType.emailAddress,
+                    controller: authController.userNameController,
+                    isEnable: true,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  plainTextField(
                       labelText: 'Name',
-                      controller: authController.userNameController),
+                      controller: authController.nameController),
                   const SizedBox(
                     height: 15,
                   ),

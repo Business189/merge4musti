@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, unnecessary_string_interpolations
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 import '../../../constants.dart';
 import '../../controller/profile_controllers.dart';
+import '../../utils/temp_data.dart';
 import '../widgets/marquee.dart';
 // import '../../widgets/sliver_app_deligate.dart';
 import '../widgets/wallet_dialog.dart';
@@ -18,6 +19,69 @@ class MyProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // var locale = AppLocalizations.of(context);
     ProfileController pc = Get.put(ProfileController());
+
+    _showModalBottomSheetI() {
+      return showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20.0))),
+        backgroundColor: Colors.white,
+        context: context,
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          return Container(
+            height: 100,
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                Text(
+                  "Connect With",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    InkWell(
+                      onTap: () {},
+                      child: SvgPicture.asset(
+                        "assets/images/instagram.svg",
+                        color: Color(0xFFE4405F),
+                        width: 40,
+                        height: 40,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: SvgPicture.asset(
+                        "assets/images/whatsapp.svg",
+                        color: Color(0xFF25D366),
+                        width: 40,
+                        height: 40,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: SvgPicture.asset(
+                        "assets/images/facebook.svg",
+                        color: Color(0xFF1877F2),
+                        width: 40,
+                        height: 40,
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    }
+
     return Container(
       // padding: EdgeInsets.only(bottom: 64.0),
       decoration: BoxDecoration(color: Colors.white),
@@ -25,27 +89,32 @@ class MyProfilePage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: appBarBackgroundColor,
           elevation: 1.0,
-          title: Container(
-            padding: EdgeInsets.only(left: 10, right: 10),
-            child: Row(
-              children: [
-                Text(
-                  "kyliejenner",
-                  style: TextStyle(
+          title: InkWell(
+            onTap: () {
+              _showModalBottomSheetI();
+            },
+            child: Container(
+              padding: EdgeInsets.only(left: 10, right: 10),
+              child: Row(
+                children: [
+                  Text(
+                    "${pc.ac.userModel.value!.username}",
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.arrow_drop_down_sharp,
+                      size: 22,
+                    ),
                     color: textColor,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.arrow_drop_down_sharp,
-                    size: 22,
-                  ),
-                  color: textColor,
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
           actions: [
@@ -57,7 +126,7 @@ class MyProfilePage extends StatelessWidget {
                       builder: (BuildContext context) => walletDialog());
                 },
                 icon: SvgPicture.asset(
-                  'assets/coin.svg',
+                  'assets/images/coin.svg',
                   width: 24,
                   height: 24,
                 )),
@@ -101,8 +170,9 @@ class MyProfilePage extends StatelessWidget {
                                     margin: EdgeInsets.only(bottom: 10),
                                     child: CachedNetworkImage(
                                       fit: BoxFit.cover,
-                                      imageUrl:
-                                          'https://cdn.shopify.com/s/files/1/0067/4555/5015/files/Kylie-intro.jpg?1024',
+                                      imageUrl: pc.ac.userModel.value
+                                              ?.profilePhoto ??
+                                          "https://www.kindpng.com/picc/m/495-4952535_create-digital-profile-icon-blue-user-profile-icon.png",
                                       height: 90,
                                       width: 90,
                                       imageBuilder: (context, imageProvider) =>
@@ -135,7 +205,7 @@ class MyProfilePage extends StatelessWidget {
                                     //         color: Colors.black)),
                                     child: MarqueeWidget(
                                       child: Text(
-                                        '@kylieppuiopp',
+                                        '${pc.ac.userModel.value!.name}',
                                         maxLines: 1,
                                         style: TextStyle(
                                             fontSize: 14,
@@ -148,13 +218,13 @@ class MyProfilePage extends StatelessWidget {
                                     child: Row(children: [
                                       cardII(
                                           icon: Icons.diamond_sharp,
-                                          t1: '180K'),
+                                          t1: '${pc.ac.userModel.value?.diamonds ?? 0}'),
                                       SizedBox(
                                         width: 8,
                                       ),
                                       cardII(
                                           icon: Icons.whatshot_outlined,
-                                          t1: '700M'),
+                                          t1: '${pc.ac.userModel.value?.flames ?? 0}'),
                                     ]),
                                   )
                                 ],
@@ -162,17 +232,25 @@ class MyProfilePage extends StatelessWidget {
                               Expanded(
                                 child: Column(
                                   children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        cardI(t1: '6831', t2: 'Videos'),
-                                        cardI(t1: '314M', t2: 'Followers'),
-                                        cardI(t1: '81', t2: 'Following'),
-                                      ],
-                                    ),
+                                    Obx(() {
+                                      return Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          cardI(
+                                              t1: '${pc.ac.userModel.value?.totalVideo ?? 0}',
+                                              t2: 'Videos'),
+                                          cardI(
+                                              t1: '${pc.ac.userModel.value?.totalFollowers ?? 0}',
+                                              t2: 'Followers'),
+                                          cardI(
+                                              t1: '${pc.ac.userModel.value?.totalFollowings ?? 0}',
+                                              t2: 'Following'),
+                                        ],
+                                      );
+                                    }),
                                     SizedBox(
                                       height: 16,
                                     ),
@@ -182,16 +260,15 @@ class MyProfilePage extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
-                                        aboutMe(
-                                            about:
-                                                "Kylie Kristen Jenner is an American media personality, socialite, model, and businesswoman.",
-                                            hashtags: [
-                                              'womenatbusiness',
-                                              'fashionmodel',
-                                              'girlboss',
-                                              'femaleentreprenure',
-                                            ],
-                                            links: 'kyliecosmetics.com'),
+                                        Obx(() {
+                                          return aboutMe(
+                                              about: pc.ac.userModel.value
+                                                      ?.about ??
+                                                  "",
+                                              hashtags: [],
+                                              links:
+                                                  '${pc.ac.userModel.value?.personalLinks ?? ""}');
+                                        }),
                                       ],
                                     ),
                                   ],
@@ -333,30 +410,36 @@ class MyProfilePage extends StatelessWidget {
                                   ),
                                   Align(
                                     alignment: Alignment.topCenter,
-                                    child: Container(
-                                      margin: EdgeInsets.only(top: 10),
-                                      child: CachedNetworkImage(
-                                        fit: BoxFit.cover,
-                                        imageUrl:
-                                            'https://instagram.fgau1-3.fna.fbcdn.net/v/t51.2885-15/272199546_302803411815769_8501125292190720724_n.jpg?stp=dst-jpg_e35_s640x640_sh0.08&_nc_ht=instagram.fgau1-3.fna.fbcdn.net&_nc_cat=1&_nc_ohc=RaF87ER3JggAX9Naue1&edm=AABBvjUBAAAA&ccb=7-4&oh=00_AT_wS1I6KpcRPAvU4VAM6EXSXWBk5wd1jGwsXC8d2_n13A&oe=6224E7BC&_nc_sid=83d6030',
-                                        height: 87,
-                                        width: 87,
-                                        imageBuilder:
-                                            (context, imageProvider) =>
-                                                Container(
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.cover,
+                                    child: InkWell(
+                                      onTap: () {
+                                        Get.toNamed("/OTHERS_PROFILE_PAGE");
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(top: 10),
+                                        child: CachedNetworkImage(
+                                          fit: BoxFit.cover,
+                                          imageUrl:
+                                              suggestedList[index].profilePic!,
+                                          height: 87,
+                                          width: 87,
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                image: imageProvider,
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        placeholder: (context, url) => Center(
-                                            child: CircularProgressIndicator()),
-                                        errorWidget: (context, url, error) =>
-                                            const Icon(
-                                          Icons.error,
+                                          placeholder: (context, url) => Center(
+                                              child:
+                                                  CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(
+                                            Icons.error,
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -374,7 +457,7 @@ class MyProfilePage extends StatelessWidget {
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                "ana_d_armas",
+                                                suggestedList[index].name!,
                                                 maxLines: 1,
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
@@ -394,25 +477,35 @@ class MyProfilePage extends StatelessWidget {
                                         SizedBox(
                                           height: 10,
                                         ),
-                                        Container(
-                                          margin: EdgeInsets.only(
-                                              left: 10, right: 10),
-                                          padding: EdgeInsets.all(6),
-                                          decoration: BoxDecoration(
-                                              color: Colors.blue,
-                                              borderRadius:
-                                                  BorderRadius.circular(6)),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text("Follow",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                  )),
-                                            ],
+                                        InkWell(
+                                          onTap: () {
+                                            pc.checkFollowing(index);
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.only(
+                                                left: 10, right: 10),
+                                            padding: EdgeInsets.all(6),
+                                            decoration: BoxDecoration(
+                                                color: Colors.blue,
+                                                borderRadius:
+                                                    BorderRadius.circular(6)),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Obx(() {
+                                                  return Text(
+                                                    !pc.following[index]
+                                                        ? "Follow"
+                                                        : "Following",
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w400),
+                                                  );
+                                                }),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                         SizedBox(
@@ -430,7 +523,7 @@ class MyProfilePage extends StatelessWidget {
                           ],
                         );
                       },
-                      itemCount: 6,
+                      itemCount: suggestedList.length,
                       scrollDirection: Axis.horizontal,
                     ),
                   ),

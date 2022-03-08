@@ -43,7 +43,7 @@ Widget walletDialog() {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
-                    'assets/coin.svg',
+                    'assets/images/coin.svg',
                     width: tileWidth * 24,
                     height: tileHeight * 24,
                   ),

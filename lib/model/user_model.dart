@@ -1,5 +1,6 @@
 class UserModel {
   String? name;
+  String? username;
   String? profilePhoto;
   String? email;
   String? uid;
@@ -10,8 +11,10 @@ class UserModel {
   String? lastActive;
   String? about;
   String? dob;
+  String? personalLinks;
   String? platform;
   int? totalFollowers;
+  int? totalFollowings;
   int? profileOneStarCount;
   int? profileTwoStarCount;
   int? profileThreeStarCount;
@@ -25,6 +28,7 @@ class UserModel {
 
   UserModel(
       {this.name,
+      this.username,
       this.profilePhoto,
       this.email,
       this.uid,
@@ -35,8 +39,10 @@ class UserModel {
       this.lastActive,
       this.about,
       this.dob,
+      this.personalLinks,
       this.platform,
       this.totalFollowers,
+      this.totalFollowings,
       this.profileOneStarCount,
       this.profileTwoStarCount,
       this.profileThreeStarCount,
@@ -50,6 +56,7 @@ class UserModel {
 
   UserModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
+    username = json['username'];
     profilePhoto = json['profilePhoto'];
     email = json['email'];
     uid = json['uid'];
@@ -59,9 +66,11 @@ class UserModel {
     createdAt = json['createdAt'];
     lastActive = json['lastActive'];
     about = json['about'];
-    about = json['dob'];
+    dob = json['dob'];
+    personalLinks = json['personalLinks'];
     platform = json['platform'];
     totalFollowers = json['totalFollowers'];
+    totalFollowings = json['totalFollowings'];
     profileOneStarCount = json['profileOneStarCount'];
     profileTwoStarCount = json['profileTwoStarCount'];
     profileThreeStarCount = json['profileThreeStarCount'];
@@ -77,6 +86,7 @@ class UserModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
+    data['username'] = username;
     data['profilePhoto'] = profilePhoto;
     data['email'] = email;
     data['uid'] = uid;
@@ -87,8 +97,10 @@ class UserModel {
     data['lastActive'] = lastActive;
     data['about'] = about;
     data['dob'] = dob;
+    data['personalLinks'] = personalLinks;
     data['platform'] = platform;
     data['totalFollowers'] = totalFollowers;
+    data['totalFollowings'] = totalFollowings;
     data['profileOneStarCount'] = profileOneStarCount;
     data['profileTwoStarCount'] = profileTwoStarCount;
     data['profileThreeStarCount'] = profileThreeStarCount;
