@@ -2,32 +2,103 @@
 
 import 'dart:convert';
 
+import 'package:agora_rtm/agora_rtm.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+// import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:four_musti/constants.dart';
+import 'package:four_musti/controller/auth.dart';
+import 'package:four_musti/controller/fetch_agora_data.dart';
+// import 'package:four_musti/model/rtm_model.dart';
 import 'package:get/get.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:open_file/open_file.dart';
 import 'package:uuid/uuid.dart';
+import 'package:objectbox/objectbox.dart';
 
-class PrivateChatController extends GetxController {
+class PrivateChatController extends GetxController
+    with GetSingleTickerProviderStateMixin {
+  AuthController ac = Get.find();
+  FetchAgoraData fad = Get.find<FetchAgoraData>();
+  String othersUserUID = '';
+
+  late final AnimationController controller;
   RxList<types.Message> messages = <types.Message>[].obs;
-  final user = const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c');
+  late types.User user;
+  AgoraRtmClient? _client;
+  // List log = [];
+  // Rx<RTMModel> rtmModel = RTMModel().obs;
+
+  //objectbox DB
+  late Store store;
+
+  // final box = store.box<Person>();
 
   @override
-  void onInit() {
+  void onInit() async {
+    user = types.User(id: ac.userModel.value!.uid!);
     messages.value = [];
     loadMessages();
+    controller = AnimationController(vsync: this);
     super.onInit();
   }
+
+  types.TextMessage textMesssage(String message, String peerId) {
+    types.User _user = types.User(id: peerId);
+    types.TextMessage _textMessage = types.TextMessage(
+      author: _user,
+      text: message,
+      id: DateTime.now().millisecond.toString() + peerId,
+    );
+    return _textMessage;
+  }
+
+  //Agora messaging
+  void login() async {
+    try {
+      await _client?.login(fad.agoraRtmForUser.value.agoraToken,
+          fad.agoraRtmForUser.value.userId!);
+    } catch (e) {
+      // Fluttertoast.showToast(msg: e.toString());
+    }
+  }
+
+  void createClient() async {
+    _client = await AgoraRtmClient.createInstance(appID);
+    _client?.onMessageReceived = ((message, peerId) {
+      // {"message": message, : peerId}
+
+      types.TextMessage _textMessage = textMesssage(message.text, peerId);
+      return messages.add(_textMessage);
+    });
+
+    _client?.onConnectionStateChanged = ((state, reason) {
+      // print(
+      //     "__state:${StateNotation[state.toString()]} __reason: ${ReasonNotation[reason.toString()]}");
+      if (state == 5) {
+        _client?.logout();
+      }
+    });
+  }
+
+  // sendMessage() async {
+  //   if (othersUserUID.isEmpty) {
+  //     return;
+  //   }
+  //   if (msgController.text.isEmpty) {
+  //     Fluttertoast.showToast(msg: "Enter msg");
+  //     return;
+  //   }
+  // }
 
   void addMessage(types.Message message) {
     messages.insert(0, message);
   }
 
+  //files
   void handleFileSelection() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.any,
@@ -70,7 +141,6 @@ class PrivateChatController extends GetxController {
         uri: result.path,
         width: image.width.toDouble(),
       );
-
       addMessage(message);
     }
     update();
@@ -96,15 +166,23 @@ class PrivateChatController extends GetxController {
     update();
   }
 
-  void handleSendPressed(types.PartialText message) {
+  void handleSendPressed(types.PartialText message) async {
     final textMessage = types.TextMessage(
       author: user,
-      createdAt: DateTime.now().millisecondsSinceEpoch,
+      // createdAt: DateTime.now().millisecondsSinceEpoch,
       id: const Uuid().v4(),
       text: message.text,
     );
 
-    addMessage(textMessage);
+    try {
+      AgoraRtmMessage agoraMessage = AgoraRtmMessage.fromText(message.text);
+      await _client?.sendMessageToPeer(othersUserUID, agoraMessage);
+      // Fluttertoast.showToast(msg: "Send peer message success");
+      addMessage(textMessage);
+    } catch (e) {
+      // Fluttertoast.showToast(msg: e.toString());
+    }
+
     update();
   }
 

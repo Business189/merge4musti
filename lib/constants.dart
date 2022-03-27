@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -35,3 +37,86 @@ LinearGradient walletCardColor = LinearGradient(
 );
 
 Color walletDialogboxBackground = Colors.white;
+
+List<Map<String, dynamic>> giftList = [
+  {
+    "name": "duck",
+    "url": "https://assets8.lottiefiles.com/packages/lf20_sd6ja104.json",
+    "price": 10
+  },
+  {
+    "name": "goodnight",
+    "url": "https://assets5.lottiefiles.com/packages/lf20_gfpzv8fj.json",
+    "price": 20
+  },
+  {
+    "name": "ship",
+    "url": "https://assets6.lottiefiles.com/packages/lf20_mxfb67ll.json",
+    "price": 30
+  },
+  {
+    "name": "coke",
+    "url": "https://assets2.lottiefiles.com/packages/lf20_2j3tmv8q.json",
+    "price": 40
+  },
+  {
+    "name": "love in air",
+    "url": "https://assets5.lottiefiles.com/packages/lf20_d2enk69l.json",
+    "price": 50
+  },
+  {
+    "name": "morning",
+    "url": "https://assets5.lottiefiles.com/packages/lf20_kabq6mqb.json",
+    "price": 60
+  },
+  {
+    "name": "heart",
+    "url": "https://assets8.lottiefiles.com/packages/lf20_ynhvfvk1.json",
+    "price": 70
+  },
+  {
+    "name": "fighter jet",
+    "url": "https://assets1.lottiefiles.com/packages/lf20_r7p5ua5t.json",
+    "price": 80
+  },
+  {
+    "name": "couple in heart",
+    "url": "https://assets10.lottiefiles.com/packages/lf20_ihzxb3tj.json",
+    "price": 90
+  },
+];
+
+List<Map<String, dynamic>> giftList2 = [
+  {
+    "name": "beer",
+    "url": "assets/temp/59504-beer.json",
+    "price": 10,
+  },
+  {
+    "name": "plane",
+    "url": "assets/temp/72442-3d-plane.json",
+    "price": 20,
+  },
+  {
+    "name": "coke",
+    "url": "assets/temp/76132-classic-coke.json",
+    "price": 30,
+  },
+  {
+    "name": "love",
+    "url": "assets/temp/95044-love-dog.json",
+    "price": 40,
+  },
+];
+
+String appID = "13fb36e3bc184dd5adca345b533fee90";
+String urlAgoraRTC =
+    "https://www.fourmusti.in/agora/agoraTokenGenerator/sample/RtcTokenBuilderSample.php";
+
+String urlAgoraRTM =
+    "https://fourmusti.in/agora/agoraTokenGenerator/sample/RtmTokenBuilderSample.php";
+Color backgroundColorNew = Color(0xFFFFFFFF);
+Color mainColorNew = Color(0xF66200FF);
+Color accentColor = Colors.amber;
+
+final DateTime constDate = DateTime(1970);

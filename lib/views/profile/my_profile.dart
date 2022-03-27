@@ -214,18 +214,43 @@ class MyProfilePage extends StatelessWidget {
                                     ),
                                   ),
                                   Container(
+                                    // decoration: BoxDecoration(
+                                    //     border:
+                                    //         Border.all(color: Colors.black)),
                                     margin: EdgeInsets.only(top: 6),
-                                    child: Row(children: [
-                                      cardII(
-                                          icon: Icons.diamond_sharp,
-                                          t1: '${pc.ac.userModel.value?.diamonds ?? 0}'),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      cardII(
-                                          icon: Icons.whatshot_outlined,
-                                          t1: '${pc.ac.userModel.value?.flames ?? 0}'),
-                                    ]),
+                                    child: Column(
+                                      children: [
+                                        Row(children: [
+                                          cardII(
+                                              icon: Icons.diamond_sharp,
+                                              t1:
+                                                  '${pc.ac.userModel.value?.diamonds ?? 0}',
+                                              backgroundColor:
+                                                  mainColorNew.withOpacity(0.2),
+                                              foregroundColor: mainColorNew),
+                                          SizedBox(
+                                            width: 2,
+                                          ),
+                                          cardII(
+                                              icon: Icons.whatshot_outlined,
+                                              t1:
+                                                  '${pc.ac.userModel.value?.flames ?? 0}',
+                                              backgroundColor:
+                                                  mainColorNew.withOpacity(0.2),
+                                              foregroundColor: mainColorNew),
+                                        ]),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        cardIII(
+                                            t1: 'Label',
+                                            t2:
+                                                '${pc.ac.userModel.value?.flames ?? 0}',
+                                            backgroundColor:
+                                                mainColorNew.withOpacity(0.2),
+                                            foregroundColor: mainColorNew),
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
@@ -266,8 +291,7 @@ class MyProfilePage extends StatelessWidget {
                                                       ?.about ??
                                                   "",
                                               hashtags: [],
-                                              links:
-                                                  '${pc.ac.userModel.value?.personalLinks ?? ""}');
+                                              links: '4891231');
                                         }),
                                       ],
                                     ),
@@ -659,12 +683,26 @@ Widget aboutMe({String? about, List<String>? hashtags, String? links}) {
           SizedBox(
             height: 4,
           ),
-          Text(
-            links ?? '',
-            style: TextStyle(
-                fontSize: 14,
-                color: hashtagColor,
-                fontWeight: FontWeight.normal),
+          Center(
+            child: Row(
+              children: [
+                Text(
+                  "Unique Id: ",
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: hashtagColor,
+                      fontWeight: FontWeight.normal),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  links ?? '',
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: hashtagColor,
+                      fontWeight: FontWeight.normal),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -672,23 +710,58 @@ Widget aboutMe({String? about, List<String>? hashtags, String? links}) {
   );
 }
 
-Container cardII({String? t1, IconData? icon}) {
+Container cardII({
+  String? t1,
+  IconData? icon,
+  Color? backgroundColor,
+  Color? foregroundColor,
+}) {
   return Container(
-    // width:
-    padding: EdgeInsets.all(1),
+    padding: EdgeInsets.only(left: 6, right: 6, top: 3, bottom: 2),
     // margin: EdgeInsets.only(right: 5),
-    decoration: BoxDecoration(borderRadius: BorderRadius.circular(3)),
-    child: Column(
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: backgroundColor ?? Colors.white),
+    child: Row(
       children: [
-        Text(
-          t1 ?? '0',
-          style: TextStyle(fontSize: 12, color: textColor),
-        ),
         Icon(
           icon ?? Icons.diamond,
-          color: textColor,
-          size: 22,
-        )
+          color: foregroundColor ?? textColor,
+          size: 12,
+        ),
+        SizedBox(width: 2),
+        Text(
+          t1 ?? '0',
+          style: TextStyle(fontSize: 10, color: foregroundColor ?? textColor),
+        ),
+      ],
+    ),
+  );
+}
+
+Container cardIII({
+  String? t1,
+  String? t2,
+  Color? backgroundColor,
+  Color? foregroundColor,
+}) {
+  return Container(
+    padding: EdgeInsets.only(left: 6, right: 6, top: 3, bottom: 2),
+    // margin: EdgeInsets.only(right: 5),
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: backgroundColor ?? Colors.white),
+    child: Row(
+      children: [
+        Text(
+          t1 ?? 'label',
+          style: TextStyle(fontSize: 10, color: foregroundColor ?? textColor),
+        ),
+        SizedBox(width: 2),
+        Text(
+          t2 ?? '0',
+          style: TextStyle(fontSize: 10, color: foregroundColor ?? textColor),
+        ),
       ],
     ),
   );

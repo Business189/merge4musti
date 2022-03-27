@@ -11,7 +11,9 @@ import 'package:four_musti/views/onboarding/onboarding_page.dart';
 import 'package:four_musti/views/splashScreen/splash_screen.dart';
 import 'package:get/get.dart';
 
+import '../views/chat/pickup_screen.dart';
 import '../views/chat/private_chat_page.dart';
+import '../views/chat/private_video_chat.dart';
 import '../views/profile/my_profile.dart';
 import '../views/profile/others_profile.dart';
 
@@ -28,4 +30,6 @@ List<GetPage> Routes = [
   GetPage(name: "/MY_PROFILE_PAGE", page: () => MyProfilePage()),
   GetPage(name: "/OTHERS_PROFILE_PAGE", page: () => OthersProfilePage()),
   GetPage(name: "/PRIVATE_CHAT", page: () => ChatPage()),
+  // GetPage(name: "/PRIVATE_VIDEO_CHAT", page: () => AgoraCallPage()),
+  GetPage(name: "/PICKUP_SCREEN", page: () => PickUpScreen()),
 ];

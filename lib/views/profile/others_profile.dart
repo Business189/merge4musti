@@ -2,7 +2,9 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:four_musti/controller/fetch_agora_data.dart';
 import 'package:four_musti/controller/others_profile_controller.dart';
 import 'package:get/get.dart';
 
@@ -15,9 +17,10 @@ import 'othertabbar/other_video_tab.dart';
 
 class OthersProfilePage extends StatelessWidget {
   OthersProfilePage({Key? key}) : super(key: key);
-  OtherProfileController opc = Get.put(OtherProfileController());
+  FetchAgoraData fad = Get.put(FetchAgoraData());
   @override
   Widget build(BuildContext context) {
+    OtherProfileController opc = Get.put(OtherProfileController());
     return Container(
       // padding: EdgeInsets.only(bottom: 64.0),
       decoration: BoxDecoration(color: Colors.white),
@@ -220,6 +223,10 @@ class OthersProfilePage extends StatelessWidget {
                                       flex: 5,
                                       child: InkWell(
                                         onTap: () {
+                                          EasyLoading.show(
+                                              status: 'preparing...');
+                                          fad.fetchRTM();
+                                          EasyLoading.dismiss();
                                           Get.toNamed("PRIVATE_CHAT");
                                         },
                                         child: Container(
