@@ -222,10 +222,12 @@ class OthersProfilePage extends StatelessWidget {
                                     Expanded(
                                       flex: 5,
                                       child: InkWell(
-                                        onTap: () {
+                                        onTap: () async {
                                           EasyLoading.show(
                                               status: 'preparing...');
-                                          fad.fetchRTM();
+                                          await fad.fetchRTM();
+                                          print(
+                                              "RTM login credentials: ${fad.agoraRtmForUser.value.agoraToken} and ${fad.agoraRtmForUser.value.userId}");
                                           EasyLoading.dismiss();
                                           Get.toNamed("PRIVATE_CHAT");
                                         },

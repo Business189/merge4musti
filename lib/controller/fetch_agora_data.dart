@@ -36,15 +36,15 @@ class FetchAgoraData extends GetxController {
 
   //upload call Info to firebase doc
   callInfoToDoc() async {
-    String uid = ac.userModel.value!.uid ?? "";
+    String uid = ac.userModel.value!.fbId ?? "";
     String timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
     String input = uid + timeStamp;
     String docID = Functions.hashing(input);
     videoCallInfo.update((val) {
       val!.docID = docID;
       val.callerID = uid;
-      val.callerName = ac.userModel.value!.name;
-      val.callerProfilePhoto = ac.userModel.value!.profilePhoto;
+      val.callerName = ac.userModel.value!.username;
+      val.callerProfilePhoto = ac.userModel.value!.profilePic;
       val.receiverID = 'acer';
       val.receiverName = 'kylie Jenner';
       val.receiverProfilePhoto =
@@ -63,7 +63,15 @@ class FetchAgoraData extends GetxController {
   fetchRTM() async {
     try {
       //For 1st User
-      final _agoraRtmForUser = await http.get(Uri.parse(urlAgoraRTM));
+      final _agoraRtmForUser = await http.post(
+        Uri.parse(urlAgoraRTM),
+        headers: <String, String>{
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        },
+        body: {
+          'userID': ac.userModel.value!.fbId,
+        },
+      );
       agoraRtmForUser.value =
           RTMModel.fromJson(jsonDecode(_agoraRtmForUser.body));
     } catch (e) {

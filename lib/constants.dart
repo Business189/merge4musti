@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -120,3 +120,22 @@ Color mainColorNew = Color(0xF66200FF);
 Color accentColor = Colors.amber;
 
 final DateTime constDate = DateTime(1970);
+
+Map<String, String> StateNotation = {
+  "1": "CONNECTION_STATE_DISCONNECTED",
+  "2": "CONNECTION_STATE_CONNECTING",
+  "3": "CONNECTION_STATE_CONNECTED",
+  "4": "CONNECTION_STATE_RECONNECTING",
+  "5": "CONNECTION_STATE_ABORTED",
+};
+
+Map<String, String> ReasonNotation = {
+  "1": "CONNECTION_CHANGE_REASON_LOGIN",
+  "2": "CONNECTION_CHANGE_REASON_LOGIN_SUCCESS",
+  "3": "CONNECTION_CHANGE_REASON_LOGIN_FAILURE",
+  "4": "CONNECTION_CHANGE_REASON_LOGIN_TIMEOUT",
+  "5": "CONNECTION_CHANGE_REASON_INTERRUPTED",
+  "6": "CONNECTION_CHANGE_REASON_LOGOUT",
+  "7": "CONNECTION_CHANGE_REASON_BANNED_BY_SERVER",
+  "8": "CONNECTION_CHANGE_REASON_REMOTE_LOGIN",
+};

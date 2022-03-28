@@ -170,8 +170,8 @@ class MyProfilePage extends StatelessWidget {
                                     margin: EdgeInsets.only(bottom: 10),
                                     child: CachedNetworkImage(
                                       fit: BoxFit.cover,
-                                      imageUrl: pc.ac.userModel.value
-                                              ?.profilePhoto ??
+                                      imageUrl: pc
+                                              .ac.userModel.value?.profilePic ??
                                           "https://www.kindpng.com/picc/m/495-4952535_create-digital-profile-icon-blue-user-profile-icon.png",
                                       height: 90,
                                       width: 90,
@@ -205,7 +205,7 @@ class MyProfilePage extends StatelessWidget {
                                     //         color: Colors.black)),
                                     child: MarqueeWidget(
                                       child: Text(
-                                        '${pc.ac.userModel.value!.name}',
+                                        '${pc.ac.userModel.value!.displayName}',
                                         maxLines: 1,
                                         style: TextStyle(
                                             fontSize: 14,
@@ -224,7 +224,7 @@ class MyProfilePage extends StatelessWidget {
                                           cardII(
                                               icon: Icons.diamond_sharp,
                                               t1:
-                                                  '${pc.ac.userModel.value?.diamonds ?? 0}',
+                                                  '${pc.ac.userModel.value?.totalDiamonds ?? 0}',
                                               backgroundColor:
                                                   mainColorNew.withOpacity(0.2),
                                               foregroundColor: mainColorNew),
@@ -234,7 +234,7 @@ class MyProfilePage extends StatelessWidget {
                                           cardII(
                                               icon: Icons.whatshot_outlined,
                                               t1:
-                                                  '${pc.ac.userModel.value?.flames ?? 0}',
+                                                  '${pc.ac.userModel.value?.totalFlames ?? 0}',
                                               backgroundColor:
                                                   mainColorNew.withOpacity(0.2),
                                               foregroundColor: mainColorNew),
@@ -243,9 +243,9 @@ class MyProfilePage extends StatelessWidget {
                                           height: 5,
                                         ),
                                         cardIII(
-                                            t1: 'Label',
+                                            t1: 'Lavel',
                                             t2:
-                                                '${pc.ac.userModel.value?.flames ?? 0}',
+                                                '${pc.ac.userModel.value?.level ?? 0}',
                                             backgroundColor:
                                                 mainColorNew.withOpacity(0.2),
                                             foregroundColor: mainColorNew),
@@ -265,7 +265,7 @@ class MyProfilePage extends StatelessWidget {
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
                                           cardI(
-                                              t1: '${pc.ac.userModel.value?.totalVideo ?? 0}',
+                                              t1: '${pc.ac.userModel.value?.totalVideos ?? 0}',
                                               t2: 'Videos'),
                                           cardI(
                                               t1: '${pc.ac.userModel.value?.totalFollowers ?? 0}',
@@ -287,9 +287,9 @@ class MyProfilePage extends StatelessWidget {
                                       children: [
                                         Obx(() {
                                           return aboutMe(
-                                              about: pc.ac.userModel.value
-                                                      ?.about ??
-                                                  "",
+                                              about:
+                                                  pc.ac.userModel.value?.bio ??
+                                                      "",
                                               hashtags: [],
                                               links: '4891231');
                                         }),

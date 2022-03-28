@@ -80,7 +80,7 @@ class AuthController extends GetxController {
     String? fullName,
     String? userName,
   ) async {
-    String _currentTimeStamp = DateTime.now().toString();
+    Timestamp _currentTimeStamp = Timestamp.now();
     User fireBaseUser = userCredential.user!;
     // String? _token = await _fcm.getToken();
 
@@ -88,31 +88,28 @@ class AuthController extends GetxController {
       try {
         // userData.value = null;
         userModel.value = UserModel(
-          uid: _auth.currentUser!.uid,
+          id: _auth.currentUser!.uid,
+
+          fbId: _auth.currentUser!.uid,
           email: _auth.currentUser!.email,
           country: "India",
           username: userName ?? "Unknown",
-          name: fullName ?? "Unknown",
+          displayName: fullName ?? "Unknown",
           // name: _auth.currentUser!.displayName ?? fullName,
           mobileNo: "",
           gender: "male",
-          profilePhoto: _auth.currentUser!.photoURL,
-          createdAt: _currentTimeStamp,
+          profilePic: _auth.currentUser!.photoURL,
+          created: _currentTimeStamp,
           lastActive: _currentTimeStamp,
-          about: "",
-          platform:
+          bio: "",
+          device:
               '${Platform.operatingSystem} - ${Platform.operatingSystemVersion}',
           totalFollowers: 0,
-          profileOneStarCount: 0,
-          profileTwoStarCount: 0,
-          profileThreeStarCount: 0,
-          profileFourStarCount: 0,
-          profileFiveStarCount: 0,
-          totalVideo: 0,
-          totalViews: 0,
+          totalVideos: 0,
           amountInWallet: 0,
-          flames: 0,
-          diamonds: 0,
+          totalFlames: 0,
+          totalDiamonds: 0,
+          level: 0,
         );
 
         await firebase
@@ -132,7 +129,7 @@ class AuthController extends GetxController {
 
         userModel.update((value) {
           value!.lastActive = _currentTimeStamp;
-          value.platform =
+          value.device =
               '${Platform.operatingSystem} - ${Platform.operatingSystemVersion}';
         });
 
@@ -163,7 +160,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> storeInSharedPreference() async {
-    await box.write('uid', userModel.value!.uid);
+    await box.write('uid', userModel.value!.fbId);
   }
 
   void signOut() async {

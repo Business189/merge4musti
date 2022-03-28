@@ -23,10 +23,10 @@ class PrivateChatController extends GetxController
     with GetSingleTickerProviderStateMixin {
   AuthController ac = Get.find();
   FetchAgoraData fad = Get.find<FetchAgoraData>();
-  String othersUserUID = '';
+  String othersUserUID = 'QBWYtiYszqdf2rOwCGuCOz6a4vt2';
 
   late final AnimationController controller;
-  RxList<types.Message> messages = <types.Message>[].obs;
+  RxList<types.Message> messages = RxList<types.Message>();
   late types.User user;
   AgoraRtmClient? _client;
   // List log = [];
@@ -39,10 +39,12 @@ class PrivateChatController extends GetxController
 
   @override
   void onInit() async {
-    user = types.User(id: ac.userModel.value!.uid!);
-    messages.value = [];
-    loadMessages();
-    controller = AnimationController(vsync: this);
+    user = types.User(id: ac.userModel.value!.fbId!);
+    // messages = [];
+    await createClient();
+    await login();
+    // loadMessages();
+    // controller = AnimationController(vsync: this);
     super.onInit();
   }
 
@@ -57,27 +59,33 @@ class PrivateChatController extends GetxController
   }
 
   //Agora messaging
-  void login() async {
+  Future login() async {
     try {
-      await _client?.login(fad.agoraRtmForUser.value.agoraToken,
-          fad.agoraRtmForUser.value.userId!);
+      await _client
+          ?.login(fad.agoraRtmForUser.value.agoraToken,
+              fad.agoraRtmForUser.value.userId!)
+          .then((value) => print(
+              "Success __userID:${fad.agoraRtmForUser.value.userId}  & __token: ${fad.agoraRtmForUser.value.agoraToken}"));
     } catch (e) {
       // Fluttertoast.showToast(msg: e.toString());
     }
   }
 
-  void createClient() async {
+  Future createClient() async {
     _client = await AgoraRtmClient.createInstance(appID);
     _client?.onMessageReceived = ((message, peerId) {
       // {"message": message, : peerId}
+      print("MessagesRTY : ${message.text}");
 
       types.TextMessage _textMessage = textMesssage(message.text, peerId);
-      return messages.add(_textMessage);
+      messages.add(_textMessage);
+      messages.refresh();
+      update();
     });
 
     _client?.onConnectionStateChanged = ((state, reason) {
-      // print(
-      //     "__state:${StateNotation[state.toString()]} __reason: ${ReasonNotation[reason.toString()]}");
+      print(
+          "__state:${StateNotation[state.toString()]} __reason: ${ReasonNotation[reason.toString()]}");
       if (state == 5) {
         _client?.logout();
       }
@@ -96,6 +104,8 @@ class PrivateChatController extends GetxController
 
   void addMessage(types.Message message) {
     messages.insert(0, message);
+    messages.refresh();
+    update();
   }
 
   //files
@@ -174,13 +184,19 @@ class PrivateChatController extends GetxController
       text: message.text,
     );
 
+    print("Users Message : ${message.text}");
+
     try {
       AgoraRtmMessage agoraMessage = AgoraRtmMessage.fromText(message.text);
       await _client?.sendMessageToPeer(othersUserUID, agoraMessage);
       // Fluttertoast.showToast(msg: "Send peer message success");
-      addMessage(textMessage);
+
     } catch (e) {
-      // Fluttertoast.showToast(msg: e.toString());
+      print("ERROR: ${e.toString()}");
+      //
+    } finally {
+      addMessage(textMessage);
+      messages.refresh();
     }
 
     update();

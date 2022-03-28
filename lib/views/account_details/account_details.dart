@@ -79,25 +79,28 @@ class AccountDetails extends StatelessWidget {
                         color: Colors.white),
                   ),
                   const SizedBox(height: 10),
-                  Text("Improve the profile win more attention",
+                  Text("Improve the profile, win more attention",
                       style: TextStyle(
                         fontSize: 14,
                         color: splashTextColor.withOpacity(0.9),
                       )),
                   const SizedBox(height: 30),
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        BoxShadow(
-                          offset: Offset(0, 0),
-                          blurRadius: 6.0,
-                          color: primaryColorII.withOpacity(0.07),
-                          spreadRadius: 5,
-                        ),
-                      ],
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: Offset(0, 0),
+                            blurRadius: 6.0,
+                            color: primaryColorII.withOpacity(0.07),
+                            spreadRadius: 5,
+                          ),
+                        ],
+                      ),
+                      child: SvgPicture.asset("assets/images/profile_pic.svg"),
                     ),
-                    child: SvgPicture.asset("assets/images/profile_pic.svg"),
                   ),
                   const SizedBox(height: 20),
                   Container(
