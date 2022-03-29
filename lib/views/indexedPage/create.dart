@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:four_musti/components/bottom_navbar.dart';
+import 'package:four_musti/constants.dart';
 import 'package:four_musti/controller/home_controller.dart';
 import 'package:four_musti/controller/landing_page_controller.dart';
 import 'package:four_musti/utils/themes.dart';
@@ -116,16 +117,9 @@ class Home extends StatelessWidget {
       bottomNavigationBar:
           bottomNavBar(context, _buildScreens(), navBarsItems(), hc.controller),
       body: Obx(() => IndexedStack(
-            // index: landingPageController.tabIndex.value,
-            index: hc.controller.index,
-            children: [
-              HomePage(),
-              SearchPage(),
-              CreatePage(),
-              InboxPage(),
-              MyProfilePage()
-            ],
-          )),
+          // index: landingPageController.tabIndex.value,
+          index: hc.controller.index,
+          children: pages)),
     ));
   }
 }

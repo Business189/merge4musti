@@ -1,11 +1,20 @@
 // ignore_for_file: prefer_const_constructors, non_constant_identifier_names
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:four_musti/views/video_screen/add_video_screen.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'views/profile/my_profile.dart';
 
-List pages = [
+List<Widget> pages = [
+  Text('Home Page'),
+  Text('Search Page'),
+  // SearchScreen(),
+  AddVideoScreen(),
+  Text('Inbox Screen'),
   MyProfilePage(),
 ];
 
@@ -139,3 +148,7 @@ Map<String, String> ReasonNotation = {
   "7": "CONNECTION_CHANGE_REASON_BANNED_BY_SERVER",
   "8": "CONNECTION_CHANGE_REASON_REMOTE_LOGIN",
 };
+
+var firebaseAuth = FirebaseAuth.instance;
+var firebaseStorage = FirebaseStorage.instance;
+var firestore = FirebaseFirestore.instance;

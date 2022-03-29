@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,6 +10,7 @@ import 'package:four_musti/controller/auth.dart';
 import 'package:four_musti/utils/constants.dart';
 import 'package:four_musti/utils/themes.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AccountDetails extends StatelessWidget {
   AccountDetails({Key? key}) : super(key: key);
@@ -35,8 +37,10 @@ class AccountDetails extends StatelessWidget {
             String username = authController.userNameController.text;
             if (name.isNotEmpty && username.isNotEmpty) {
               await authController.createUser(
-                  authController.nameController.text,
-                  authController.userNameController.text);
+                authController.nameController.text,
+                authController.userNameController.text,
+                authController.mobileNoController.text,
+              );
               await authController.storeInSharedPreference();
               Get.offNamed("MY_PROFILE_PAGE");
             } else {
@@ -85,21 +89,84 @@ class AccountDetails extends StatelessWidget {
                         color: splashTextColor.withOpacity(0.9),
                       )),
                   const SizedBox(height: 30),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(0, 0),
-                            blurRadius: 6.0,
-                            color: primaryColorII.withOpacity(0.07),
-                            spreadRadius: 5,
-                          ),
-                        ],
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(50),
+                      onTap: () async {
+                        await authController.loadPicker(ImageSource.gallery);
+                      },
+                      child: ClipOval(
+                        child: Obx(
+                          () => authController.isSelect.value == false
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: Offset(0, 0),
+                                        blurRadius: 6.0,
+                                        color: primaryColorII.withOpacity(0.07),
+                                        spreadRadius: 5,
+                                      ),
+                                    ],
+                                  ),
+                                  child: SvgPicture.asset(
+                                      "assets/images/profile_pic.svg"),
+                                )
+                              : CachedNetworkImage(
+                                  imageUrl:
+                                      authController.downloadUrlAuth.value,
+                                  imageBuilder: (context, imageProvider) =>
+                                      Container(
+                                    width: 90,
+                                    height: 90,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          offset: Offset(0, 0),
+                                          blurRadius: 6.0,
+                                          color:
+                                              primaryColorII.withOpacity(0.07),
+                                          spreadRadius: 5,
+                                        ),
+                                      ],
+                                      // color: Colors.white,
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  placeholder: (context, url) => Container(
+                                    width: 90,
+                                    height: 90,
+                                    padding: EdgeInsets.all(35),
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          offset: Offset(0, 0),
+                                          blurRadius: 6.0,
+                                          color:
+                                              primaryColorII.withOpacity(0.07),
+                                          spreadRadius: 5,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                        child: CircularProgressIndicator()),
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      // Icon(Icons.account_circle_rounded),
+                                      SvgPicture.asset(
+                                          "assets/images/profile_pic.svg"),
+                                ),
+                        ),
                       ),
-                      child: SvgPicture.asset("assets/images/profile_pic.svg"),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -144,12 +211,16 @@ class AccountDetails extends StatelessWidget {
                     height: 15,
                   ),
                   plainTextField(
-                      labelText: 'Mobile No', inputType: TextInputType.phone),
+                    labelText: 'Mobile No',
+                    inputType: TextInputType.phone,
+                    controller: authController.mobileNoController,
+                  ),
                   const SizedBox(
                     height: 15,
                   ),
                   plainTextField(
                     labelText: 'Country',
+                    controller: authController.countryController,
                   ),
                   const SizedBox(
                     height: 15,
