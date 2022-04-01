@@ -173,7 +173,7 @@ class OthersProfilePage extends StatelessWidget {
                                               'girlboss',
                                               'femaleentreprenure',
                                             ],
-                                            links: 'kyliecosmetics.com'),
+                                            uniqueUID: '7984356'),
                                       ],
                                     ),
                                   ],

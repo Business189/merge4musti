@@ -21,7 +21,7 @@ import 'package:objectbox/objectbox.dart';
 
 class PrivateChatController extends GetxController
     with GetSingleTickerProviderStateMixin {
-  AuthController ac = Get.find();
+  AuthController ac = Get.find<AuthController>();
   FetchAgoraData fad = Get.find<FetchAgoraData>();
   String othersUserUID = 'QBWYtiYszqdf2rOwCGuCOz6a4vt2';
 
@@ -53,7 +53,7 @@ class PrivateChatController extends GetxController
     types.TextMessage _textMessage = types.TextMessage(
       author: _user,
       text: message,
-      id: DateTime.now().millisecond.toString() + peerId,
+      id: peerId + DateTime.now().millisecond.toString(),
     );
     return _textMessage;
   }
@@ -78,9 +78,7 @@ class PrivateChatController extends GetxController
       print("MessagesRTY : ${message.text}");
 
       types.TextMessage _textMessage = textMesssage(message.text, peerId);
-      messages.add(_textMessage);
-      messages.refresh();
-      update();
+      addMessage(_textMessage);
     });
 
     _client?.onConnectionStateChanged = ((state, reason) {
@@ -153,14 +151,12 @@ class PrivateChatController extends GetxController
       );
       addMessage(message);
     }
-    update();
   }
 
   void handleMessageTap(BuildContext context, types.Message message) async {
     if (message is types.FileMessage) {
       await OpenFile.open(message.uri);
     }
-    update();
   }
 
   void handlePreviewDataFetched(
@@ -196,9 +192,7 @@ class PrivateChatController extends GetxController
       //
     } finally {
       addMessage(textMessage);
-      messages.refresh();
     }
-
     update();
   }
 

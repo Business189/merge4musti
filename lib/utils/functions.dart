@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:crypto/crypto.dart';
 
@@ -15,5 +16,15 @@ class Functions {
     var bytes = utf8.encode(inputStr); // data being hashed
     var digest = sha1.convert(bytes);
     return digest.toString();
+  }
+
+  static uniqueIDGenerator() {
+    Random rnd = Random();
+    int max = 9999999;
+    int min = 1000000;
+    Random rnd2 = Random(DateTime.now().millisecondsSinceEpoch);
+    int r2 = min + rnd2.nextInt(max - min);
+    return r2;
+    // return _now.toString()
   }
 }

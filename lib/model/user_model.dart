@@ -33,40 +33,43 @@ class UserModel {
   String? mobileNo;
   Timestamp? lastActive;
   int? level;
+  List<String>? hashtags;
 
-  UserModel(
-      {this.id,
-      this.fbId,
-      this.username,
-      this.verified,
-      this.firstName,
-      this.lastName,
-      this.gender,
-      this.bio,
-      this.dob,
-      this.profilePic,
-      this.block,
-      this.version,
-      this.device,
-      this.signupType,
-      this.token,
-      this.bearerToken,
-      this.created,
-      this.email,
-      this.displayName,
-      this.isLogin,
-      this.totalLikes,
-      this.totalFlames,
-      this.totalDiamonds,
-      this.totalVideos,
-      this.uniqueYouId,
-      this.totalFollowers,
-      this.totalFollowings,
-      this.amountInWallet,
-      this.country,
-      this.mobileNo,
-      this.lastActive,
-      this.level});
+  UserModel({
+    this.id,
+    this.fbId,
+    this.username,
+    this.verified,
+    this.firstName,
+    this.lastName,
+    this.gender,
+    this.bio,
+    this.dob,
+    this.profilePic,
+    this.block,
+    this.version,
+    this.device,
+    this.signupType,
+    this.token,
+    this.bearerToken,
+    this.created,
+    this.email,
+    this.displayName,
+    this.isLogin,
+    this.totalLikes,
+    this.totalFlames,
+    this.totalDiamonds,
+    this.totalVideos,
+    this.uniqueYouId,
+    this.totalFollowers,
+    this.totalFollowings,
+    this.amountInWallet,
+    this.country,
+    this.mobileNo,
+    this.lastActive,
+    this.level,
+    this.hashtags,
+  });
 
   UserModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -101,6 +104,7 @@ class UserModel {
     mobileNo = json['mobileNo'];
     lastActive = json['lastActive'];
     level = json['level'];
+    hashtags = json['hashtags'];
   }
 
   Map<String, dynamic> toJson() {
@@ -137,6 +141,7 @@ class UserModel {
     data['mobileNo'] = mobileNo;
     data['lastActive'] = lastActive;
     data['level'] = level;
+    data['hashtags'] = hashtags;
     return data;
   }
 }

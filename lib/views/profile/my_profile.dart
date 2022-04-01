@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, unnecessary_string_interpolations
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:four_musti/model/user_model.dart';
+import 'package:four_musti/utils/functions.dart';
 import 'package:get/get.dart';
 
 import '../../../constants.dart';
@@ -18,6 +21,7 @@ class MyProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // var locale = AppLocalizations.of(context);
+    print(Functions.uniqueIDGenerator());
     ProfileController pc = Get.put(ProfileController());
 
     _showModalBottomSheetI() {
@@ -243,7 +247,7 @@ class MyProfilePage extends StatelessWidget {
                                           height: 5,
                                         ),
                                         cardIII(
-                                            t1: 'Lavel',
+                                            t1: 'Level',
                                             t2:
                                                 '${pc.ac.userModel.value?.level ?? 0}',
                                             backgroundColor:
@@ -267,12 +271,18 @@ class MyProfilePage extends StatelessWidget {
                                           cardI(
                                               t1: '${pc.ac.userModel.value?.totalVideos ?? 0}',
                                               t2: 'Videos'),
-                                          cardI(
-                                              t1: '${pc.ac.userModel.value?.totalFollowers ?? 0}',
-                                              t2: 'Followers'),
-                                          cardI(
-                                              t1: '${pc.ac.userModel.value?.totalFollowings ?? 0}',
-                                              t2: 'Following'),
+                                          InkWell(
+                                            onTap: () {},
+                                            child: cardI(
+                                                t1: '${pc.ac.userModel.value?.totalFollowers ?? 0}',
+                                                t2: 'Followers'),
+                                          ),
+                                          InkWell(
+                                            onTap: () {},
+                                            child: cardI(
+                                                t1: '${pc.ac.userModel.value?.totalFollowings ?? 0}',
+                                                t2: 'Following'),
+                                          ),
                                         ],
                                       );
                                     }),
@@ -290,8 +300,11 @@ class MyProfilePage extends StatelessWidget {
                                               about:
                                                   pc.ac.userModel.value?.bio ??
                                                       "",
-                                              hashtags: [],
-                                              links: '4891231');
+                                              hashtags: pc.ac.userModel.value
+                                                      ?.hashtags ??
+                                                  [],
+                                              uniqueUID: pc.ac.userModel.value
+                                                  ?.uniqueYouId);
                                         }),
                                       ],
                                     ),
@@ -397,159 +410,189 @@ class MyProfilePage extends StatelessWidget {
                   visible: pc.isVisible.value,
                   child: SizedBox(
                     height: 210,
-                    child: ListView.builder(
-                      itemBuilder: (context, index) {
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Container(
-                              alignment: Alignment.center,
-                              width: 140,
-                              margin: EdgeInsets.only(
-                                  top: 10,
-                                  bottom: 10,
-                                  left: index == 0 ? 16 : 0,
-                                  right: index == 5 ? 16 : 0),
-                              decoration: BoxDecoration(
-                                  color: appBarBackgroundColor,
-                                  borderRadius: BorderRadius.circular(6.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      blurRadius: 6,
-                                      offset: Offset(1, 1),
-                                    ),
-                                  ]),
-                              child: Stack(
+                    child: StreamBuilder<QuerySnapshot>(
+                        stream: pc.stream,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return Text('Something went wrong');
+                          }
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return CircularProgressIndicator();
+                          }
+                          if (!snapshot.hasData) {
+                            print("void");
+                            return Container();
+                          }
+                          return ListView.builder(
+                            itemCount: 6,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              pc.otherUser = UserModel.fromJson(snapshot
+                                  .data?.docs[index] as Map<String, dynamic>);
+                              return Row(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  Align(
-                                    alignment: Alignment.topRight,
-                                    child: IconButton(
-                                        onPressed: () {},
-                                        icon: Icon(
-                                          Icons.close,
-                                          size: 18,
-                                          color: disabledTextColor,
-                                        )),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.topCenter,
-                                    child: InkWell(
-                                      onTap: () {
-                                        Get.toNamed("/OTHERS_PROFILE_PAGE");
-                                      },
-                                      child: Container(
-                                        margin: EdgeInsets.only(top: 10),
-                                        child: CachedNetworkImage(
-                                          fit: BoxFit.cover,
-                                          imageUrl:
-                                              suggestedList[index].profilePic!,
-                                          height: 87,
-                                          width: 87,
-                                          imageBuilder:
-                                              (context, imageProvider) =>
-                                                  Container(
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              image: DecorationImage(
-                                                image: imageProvider,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    width: 140,
+                                    margin: EdgeInsets.only(
+                                        top: 10,
+                                        bottom: 10,
+                                        left: index == 0 ? 16 : 0,
+                                        right: index == 5 ? 16 : 0),
+                                    decoration: BoxDecoration(
+                                        color: appBarBackgroundColor,
+                                        borderRadius:
+                                            BorderRadius.circular(6.0),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.1),
+                                            blurRadius: 6,
+                                            offset: Offset(1, 1),
                                           ),
-                                          placeholder: (context, url) => Center(
-                                              child:
-                                                  CircularProgressIndicator()),
-                                          errorWidget: (context, url, error) =>
-                                              const Icon(
-                                            Icons.error,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                        ]),
+                                    child: Stack(
                                       children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                suggestedList[index].name!,
-                                                maxLines: 1,
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
+                                        Align(
+                                          alignment: Alignment.topRight,
+                                          child: IconButton(
+                                              onPressed: () {},
+                                              icon: Icon(
+                                                Icons.close,
+                                                size: 18,
+                                                color: disabledTextColor,
+                                              )),
+                                        ),
+                                        Align(
+                                          alignment: Alignment.topCenter,
+                                          child: InkWell(
+                                            onTap: () {
+                                              Get.toNamed(
+                                                  "/OTHERS_PROFILE_PAGE");
+                                            },
+                                            child: Container(
+                                              margin: EdgeInsets.only(top: 10),
+                                              child: CachedNetworkImage(
+                                                fit: BoxFit.cover,
+                                                imageUrl:
+                                                    pc.otherUser.profilePic!,
+                                                height: 87,
+                                                width: 87,
+                                                imageBuilder:
+                                                    (context, imageProvider) =>
+                                                        Container(
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    image: DecorationImage(
+                                                      image: imageProvider,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                                placeholder: (context, url) =>
+                                                    Center(
+                                                        child:
+                                                            CircularProgressIndicator()),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        const Icon(
+                                                  Icons.error,
                                                 ),
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Text("suggested for you"),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            pc.checkFollowing(index);
-                                          },
-                                          child: Container(
-                                            margin: EdgeInsets.only(
-                                                left: 10, right: 10),
-                                            padding: EdgeInsets.all(6),
-                                            decoration: BoxDecoration(
-                                                color: Colors.blue,
-                                                borderRadius:
-                                                    BorderRadius.circular(6)),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Obx(() {
-                                                  return Text(
-                                                    !pc.following[index]
-                                                        ? "Follow"
-                                                        : "Following",
-                                                    style: TextStyle(
-                                                        fontSize: 12,
-                                                        fontWeight:
-                                                            FontWeight.w400),
-                                                  );
-                                                }),
-                                              ],
-                                            ),
                                           ),
                                         ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
+                                        Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      pc.otherUser
+                                                              .displayName ??
+                                                          pc.otherUser
+                                                              .username!,
+                                                      maxLines: 1,
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text("suggested for you"),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              InkWell(
+                                                onTap: () {
+                                                  pc.checkFollowing(index);
+                                                },
+                                                child: Container(
+                                                  margin: EdgeInsets.only(
+                                                      left: 10, right: 10),
+                                                  padding: EdgeInsets.all(6),
+                                                  decoration: BoxDecoration(
+                                                      color: Colors.blue,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              6)),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Obx(() {
+                                                        return Text(
+                                                          !pc.following[index]
+                                                              ? "Follow"
+                                                              : "Following",
+                                                          style: TextStyle(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400),
+                                                        );
+                                                      }),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                            ],
+                                          ),
+                                        )
                                       ],
                                     ),
+                                  ),
+                                  SizedBox(
+                                    width: index == 5 ? 0 : 10,
                                   )
                                 ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: index == 5 ? 0 : 10,
-                            )
-                          ],
-                        );
-                      },
-                      itemCount: suggestedList.length,
-                      scrollDirection: Axis.horizontal,
-                    ),
+                              );
+                            },
+                          );
+                        }),
                   ),
                 );
               }),
@@ -640,7 +683,7 @@ Container cardI({String? t1, String? t2}) {
   );
 }
 
-Widget aboutMe({String? about, List<String>? hashtags, String? links}) {
+Widget aboutMe({String? about, List<String>? hashtags, String? uniqueUID}) {
   return Expanded(
     child: Container(
       // width:
@@ -665,45 +708,50 @@ Widget aboutMe({String? about, List<String>? hashtags, String? links}) {
           SizedBox(
             height: 4,
           ),
-          Wrap(
-            children: List.generate(
-              hashtags == null ? 0 : hashtags.length,
-              (index) => Container(
-                margin: EdgeInsets.only(right: 5),
-                child: Text(
-                  hashtags != null ? '#${hashtags[index]}' : '',
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: hashtagColor,
-                      fontWeight: FontWeight.normal),
-                ),
-              ),
-            ),
-          ),
+          hashtags != null
+              ? Wrap(
+                  children: List.generate(
+                    hashtags == null ? 0 : hashtags.length,
+                    (index) => Container(
+                      margin: EdgeInsets.only(right: 5),
+                      child: Text(
+                        '#${hashtags[index]}',
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: hashtagColor,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                  ),
+                )
+              : Container(),
           SizedBox(
-            height: 4,
+            height: 10,
           ),
-          Center(
-            child: Row(
-              children: [
-                Text(
-                  "Unique Id: ",
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: hashtagColor,
-                      fontWeight: FontWeight.normal),
-                ),
-                SizedBox(width: 10),
-                Text(
-                  links ?? '',
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: hashtagColor,
-                      fontWeight: FontWeight.normal),
-                ),
-              ],
-            ),
-          ),
+          uniqueUID != null
+              ? Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Unique Id: ",
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: textColor,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 5),
+                      Text(
+                        "4M-" + uniqueUID,
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: textColor,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                )
+              : Container(),
         ],
       ),
     ),

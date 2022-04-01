@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:four_musti/controller/auth.dart';
 import 'package:four_musti/model/user_model.dart';
+import 'package:four_musti/views/indexedPage/create.dart';
 import 'package:four_musti/views/indexedPage/home.dart';
 import 'package:four_musti/views/login/login.dart';
 import 'package:four_musti/views/profile/my_profile.dart';
@@ -33,7 +34,7 @@ class Root extends StatelessWidget {
                   } else {
                     authController.userModel.value = snapshot.data!;
                     authController.storeInSharedPreference();
-                    return MyProfilePage();
+                    return Home();
                   }
                 // return Text('Result: ${snapshot.data?.displayName}');
               }

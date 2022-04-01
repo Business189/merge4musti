@@ -119,14 +119,12 @@ class AuthController extends GetxController {
         // userData.value = null;
         userModel.value = UserModel(
           id: _auth.currentUser!.uid,
-
           fbId: _auth.currentUser!.uid,
           email: _auth.currentUser!.email,
           country: "India",
           username: userName ?? "Unknown",
           displayName: fullName ?? "Unknown",
           profilePic: downloadUrlAuth.value,
-          // name: _auth.currentUser!.displayName ?? fullName,
           mobileNo: mobileNo ?? "",
           gender: "male",
           created: _currentTimeStamp,
@@ -140,6 +138,9 @@ class AuthController extends GetxController {
           totalFlames: 0,
           totalDiamonds: 0,
           level: 0,
+          uniqueYouId: Functions.uniqueIDGenerator(),
+          block: 0,
+          verified: "0",
         );
 
         await firebase

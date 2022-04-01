@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:four_musti/views/video_screen/add_video_screen.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'views/profile/my_profile.dart';
@@ -13,7 +12,8 @@ List<Widget> pages = [
   Text('Home Page'),
   Text('Search Page'),
   // SearchScreen(),
-  AddVideoScreen(),
+  Text('Search Page'),
+  // CameraScreen(),
   Text('Inbox Screen'),
   MyProfilePage(),
 ];
