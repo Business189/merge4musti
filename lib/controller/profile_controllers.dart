@@ -16,12 +16,12 @@ class ProfileController extends GetxController
   RxList rejectedUsers = [].obs;
   late Stream<QuerySnapshot> stream;
   UserModel otherUser = UserModel();
-  // ProfileController() {
-  //   following.value = List.generate(suggestedList.length, (index) => false);
-  // }
+  ProfileController() {
+    following.value = List.generate(suggestedList.length, (index) => false);
+  }
   @override
   void onInit() {
-    stream = streamFx();
+    // stream = streamFx();
     tabController = TabController(length: 2, vsync: this);
     tabController.addListener(chageTabIconColor);
     super.onInit();
@@ -35,13 +35,12 @@ class ProfileController extends GetxController
     following[index] = !following[index];
   }
 
-  streamFx() {
-    return firebase
-        .collection('users')
-        .where('fbID', isNotEqualTo: ac.userModel.value!.fbId)
-        .where('uniqueID', whereNotIn: rejectedUsers)
-        .where('block', isEqualTo: 0)
-        .limit(5)
-        .snapshots();
-  }
+  // streamFx() {
+  //   return firebase
+  //       .collection('users')
+  //       .where('fb_id', isNotEqualTo: ac.userModel.value!.fbId)
+  //       .where('block', isEqualTo: 0)
+  //       .limit(5)
+  //       .snapshots();
+  // }
 }

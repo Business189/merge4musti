@@ -6,17 +6,17 @@ List<TopFollowingModel> topFollowingList = [
       uid: "1234567",
       profilePic:
           "https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      name: "Rafaella Mendes Diniz"),
+      name: "Simran Kaur"),
   TopFollowingModel(
       uid: "9245527",
       profilePic:
           "https://images.unsplash.com/photo-1514651872441-3f794c1df249?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=385&q=80",
-      name: "Ilya gorborukov"),
+      name: "Suchirta Rai Barman"),
   TopFollowingModel(
       uid: "0734327",
       profilePic:
           "https://images.unsplash.com/photo-1524666041070-9d87656c25bb?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      name: "John Mark Arnold"),
+      name: "Subham Gill"),
   TopFollowingModel(
       uid: "8214317",
       profilePic:
@@ -26,7 +26,7 @@ List<TopFollowingModel> topFollowingList = [
       uid: "2321217",
       profilePic:
           "https://images.unsplash.com/photo-1543084951-1650d1468e2d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      name: "Dana Jm"),
+      name: "Jim Dana "),
   TopFollowingModel(
       uid: "1614510",
       profilePic:
@@ -56,7 +56,7 @@ List<TopFollowingModel> topFollowingList = [
       uid: "5050213",
       profilePic:
           "https://images.unsplash.com/photo-1512310604669-443f26c35f52?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=434&q=80",
-      name: "Joshua Rawson-Harris"),
+      name: "Bipash Lama"),
   TopFollowingModel(
       uid: "5050213",
       profilePic:

@@ -7,7 +7,7 @@ class OtherLikedVideoTab extends StatelessWidget {
   Widget build(BuildContext context) {
     print("tab2");
     return Container(
-      child: Text("Other Liked Video"),
+      child: Text(""),
     );
   }
 }

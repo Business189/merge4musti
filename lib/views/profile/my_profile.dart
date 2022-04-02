@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:four_musti/model/user_model.dart';
 import 'package:four_musti/utils/functions.dart';
+import 'package:four_musti/utils/temp_data.dart';
 import 'package:get/get.dart';
 
 import '../../../constants.dart';
 import '../../controller/profile_controllers.dart';
-import '../../utils/temp_data.dart';
 import '../widgets/marquee.dart';
 // import '../../widgets/sliver_app_deligate.dart';
 import '../widgets/wallet_dialog.dart';
@@ -410,189 +410,159 @@ class MyProfilePage extends StatelessWidget {
                   visible: pc.isVisible.value,
                   child: SizedBox(
                     height: 210,
-                    child: StreamBuilder<QuerySnapshot>(
-                        stream: pc.stream,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasError) {
-                            return Text('Something went wrong');
-                          }
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return CircularProgressIndicator();
-                          }
-                          if (!snapshot.hasData) {
-                            print("void");
-                            return Container();
-                          }
-                          return ListView.builder(
-                            itemCount: 6,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              pc.otherUser = UserModel.fromJson(snapshot
-                                  .data?.docs[index] as Map<String, dynamic>);
-                              return Row(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                    child: ListView.builder(
+                      itemBuilder: (context, index) {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Container(
+                              alignment: Alignment.center,
+                              width: 140,
+                              margin: EdgeInsets.only(
+                                  top: 10,
+                                  bottom: 10,
+                                  left: index == 0 ? 16 : 0,
+                                  right: index == 5 ? 16 : 0),
+                              decoration: BoxDecoration(
+                                  color: appBarBackgroundColor,
+                                  borderRadius: BorderRadius.circular(6.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.1),
+                                      blurRadius: 6,
+                                      offset: Offset(1, 1),
+                                    ),
+                                  ]),
+                              child: Stack(
                                 children: [
-                                  Container(
-                                    alignment: Alignment.center,
-                                    width: 140,
-                                    margin: EdgeInsets.only(
-                                        top: 10,
-                                        bottom: 10,
-                                        left: index == 0 ? 16 : 0,
-                                        right: index == 5 ? 16 : 0),
-                                    decoration: BoxDecoration(
-                                        color: appBarBackgroundColor,
-                                        borderRadius:
-                                            BorderRadius.circular(6.0),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color:
-                                                Colors.black.withOpacity(0.1),
-                                            blurRadius: 6,
-                                            offset: Offset(1, 1),
-                                          ),
-                                        ]),
-                                    child: Stack(
-                                      children: [
-                                        Align(
-                                          alignment: Alignment.topRight,
-                                          child: IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(
-                                                Icons.close,
-                                                size: 18,
-                                                color: disabledTextColor,
-                                              )),
-                                        ),
-                                        Align(
-                                          alignment: Alignment.topCenter,
-                                          child: InkWell(
-                                            onTap: () {
-                                              Get.toNamed(
-                                                  "/OTHERS_PROFILE_PAGE");
-                                            },
-                                            child: Container(
-                                              margin: EdgeInsets.only(top: 10),
-                                              child: CachedNetworkImage(
+                                  Align(
+                                    alignment: Alignment.topRight,
+                                    child: IconButton(
+                                        onPressed: () {},
+                                        icon: Icon(
+                                          Icons.close,
+                                          size: 18,
+                                          color: disabledTextColor,
+                                        )),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.topCenter,
+                                    child: InkWell(
+                                      onTap: () {
+                                        Get.toNamed("/OTHERS_PROFILE_PAGE");
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(top: 10),
+                                        child: CachedNetworkImage(
+                                          fit: BoxFit.cover,
+                                          imageUrl:
+                                              suggestedList[index].profilePic!,
+                                          height: 87,
+                                          width: 87,
+                                          imageBuilder:
+                                              (context, imageProvider) =>
+                                                  Container(
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                image: imageProvider,
                                                 fit: BoxFit.cover,
-                                                imageUrl:
-                                                    pc.otherUser.profilePic!,
-                                                height: 87,
-                                                width: 87,
-                                                imageBuilder:
-                                                    (context, imageProvider) =>
-                                                        Container(
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    image: DecorationImage(
-                                                      image: imageProvider,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                                placeholder: (context, url) =>
-                                                    Center(
-                                                        child:
-                                                            CircularProgressIndicator()),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        const Icon(
-                                                  Icons.error,
-                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Align(
-                                          alignment: Alignment.bottomCenter,
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      pc.otherUser
-                                                              .displayName ??
-                                                          pc.otherUser
-                                                              .username!,
-                                                      maxLines: 1,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text("suggested for you"),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              InkWell(
-                                                onTap: () {
-                                                  pc.checkFollowing(index);
-                                                },
-                                                child: Container(
-                                                  margin: EdgeInsets.only(
-                                                      left: 10, right: 10),
-                                                  padding: EdgeInsets.all(6),
-                                                  decoration: BoxDecoration(
-                                                      color: Colors.blue,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              6)),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Obx(() {
-                                                        return Text(
-                                                          !pc.following[index]
-                                                              ? "Follow"
-                                                              : "Following",
-                                                          style: TextStyle(
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400),
-                                                        );
-                                                      }),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                            ],
+                                          placeholder: (context, url) => Center(
+                                              child:
+                                                  CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) =>
+                                              const Icon(
+                                            Icons.error,
                                           ),
-                                        )
-                                      ],
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: index == 5 ? 0 : 10,
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                suggestedList[index].name!,
+                                                maxLines: 1,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Text("suggested for you"),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            pc.checkFollowing(index);
+                                          },
+                                          child: Container(
+                                            margin: EdgeInsets.only(
+                                                left: 10, right: 10),
+                                            padding: EdgeInsets.all(6),
+                                            decoration: BoxDecoration(
+                                                color: Colors.blue,
+                                                borderRadius:
+                                                    BorderRadius.circular(6)),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Obx(() {
+                                                  return Text(
+                                                    !pc.following[index]
+                                                        ? "Follow"
+                                                        : "Following",
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w400),
+                                                  );
+                                                }),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                      ],
+                                    ),
                                   )
                                 ],
-                              );
-                            },
-                          );
-                        }),
+                              ),
+                            ),
+                            SizedBox(
+                              width: index == 5 ? 0 : 10,
+                            )
+                          ],
+                        );
+                      },
+                      itemCount: suggestedList.length,
+                      scrollDirection: Axis.horizontal,
+                    ),
                   ),
                 );
               }),

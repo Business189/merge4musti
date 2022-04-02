@@ -84,7 +84,7 @@ class OthersProfilePage extends StatelessWidget {
                                     child: CachedNetworkImage(
                                       fit: BoxFit.cover,
                                       imageUrl:
-                                          'https://cdn.shopify.com/s/files/1/0067/4555/5015/files/Kylie-intro.jpg?1024',
+                                          'https://images.unsplash.com/photo-1524502397800-2eeaad7c3fe5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80',
                                       height: 90,
                                       width: 90,
                                       imageBuilder: (context, imageProvider) =>
@@ -117,7 +117,7 @@ class OthersProfilePage extends StatelessWidget {
                                     //         color: Colors.black)),
                                     child: MarqueeWidget(
                                       child: Text(
-                                        '@kylieppuiopp',
+                                        '@simranppuiopp',
                                         maxLines: 1,
                                         style: TextStyle(
                                             fontSize: 14,
@@ -166,7 +166,7 @@ class OthersProfilePage extends StatelessWidget {
                                       children: [
                                         aboutMe(
                                             about:
-                                                "Kylie Kristen Jenner is an American media personality, socialite, model, and businesswoman.",
+                                                "Actor/ singer/ socialite/ model, and businesswoman.",
                                             hashtags: [
                                               'womenatbusiness',
                                               'fashionmodel',

@@ -8,7 +8,7 @@ class MyVideoTab extends StatelessWidget {
   Widget build(BuildContext context) {
     print("tab1");
     return Container(
-      child: Text("My Video"),
+      child: Text(""),
     );
   }
 }
