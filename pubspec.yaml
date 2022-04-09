@@ -63,6 +63,11 @@ dependencies:
   fluttertoast: ^8.0.9
   objectbox_flutter_libs: ^1.4.1
 
+  video_compress: ^3.1.0
+  video_player: 2.2.19
+  video_editor_sdk: ^2.2.0
+  # wakelock: ^0.5.6
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
